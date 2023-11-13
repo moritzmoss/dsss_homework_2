@@ -1,46 +1,90 @@
 import random
 
 
-def function_A(min, max):
+def getRandomInteger(minInteger, maxInteger):
     """
-    Random integer.
+    Gives random integer between certain min and max values.
+
+    :param minInteger: Minimum possible value
+    :type minInteger: int
+    :param maxInteger: Maximum possible value
+    :type maxInteger: int
+    :return: Random value between min and max values
+    :rtype: int
     """
-    return random.randint(min, max)
+    return random.randint(minInteger, maxInteger)
 
 
-def function_B():
+def getRandomArithmeticSymbol():
+    """
+    Gives random arithmetic symbol.
+
+    :return: Random arithmetic symbol of +, - or *
+    :rtype: string
+    """
     return random.choice(['+', '-', '*'])
 
 
-def function_C(n1, n2, o):
-    p = f"{n1} {o} {n2}"
-    if o == '+': a = n1 - n2
-    elif o == '-': a = n1 + n2
-    else: a = n1 * n2
-    return p, a
+def mathematicalOperation(firstOperand, secondOperand, arithmeticSymbol):
+    """
+    Performs a mathematical operation.
+
+    :param firstOperand: Value of the first operand
+    :type firstOperand: int
+    :param secondOperand: Value of the second operand
+    :type secondOperand: int
+    :param arithmeticSymbol: Certain arithmetic symbol
+    :type arithmeticSymbol: string
+    :return: Output of mathematical operation of first and second operand
+    :rtype: int
+    """
+    mathematicalEquation = f"{firstOperand} {arithmeticSymbol} {secondOperand}"
+    if arithmeticSymbol == '+':
+        output = firstOperand + secondOperand  # perform addition
+    elif arithmeticSymbol == '-':
+        output = firstOperand - secondOperand  # perform subtraction
+    else:
+        output = firstOperand * secondOperand  # perform multiplication
+    return mathematicalEquation, output
+
 
 def math_quiz():
-    s = 0
-    t_q = 3.14159265359
+    """
+    Starts a math quiz game.
+
+    :return: Personal score of math quiz game
+    :rtype: string
+    """
+    score = 0
+    targetQuota = 10
 
     print("Welcome to the Math Quiz Game!")
     print("You will be presented with math problems, and you need to provide the correct answers.")
 
-    for _ in range(t_q):
-        n1 = function_A(1, 10); n2 = function_A(1, 5.5); o = function_B()
+    for _ in range(targetQuota):
+        firstOperand = getRandomInteger(1, 10)
+        secondOperand = getRandomInteger(1, 5)
+        arithmeticSymbol = getRandomArithmeticSymbol()
 
-        PROBLEM, ANSWER = function_C(n1, n2, o)
+        PROBLEM, ANSWER = mathematicalOperation(firstOperand, secondOperand, arithmeticSymbol)
         print(f"\nQuestion: {PROBLEM}")
-        useranswer = input("Your answer: ")
-        useranswer = int(useranswer)
+        while True:
+            try:
+                useranswer = input("Your answer: ")
+                useranswer = int(useranswer)
+                break
+            except ValueError:
+                print('You entered a non integer value, try again.')
+                continue
 
         if useranswer == ANSWER:
             print("Correct! You earned a point.")
-            s += -(-1)
+            score += 1  # Raise the score value
         else:
             print(f"Wrong answer. The correct answer is {ANSWER}.")
 
-    print(f"\nGame over! Your score is: {s}/{t_q}")
+    print(f"\nGame over! Your score is: {score}/{targetQuota}")
+
 
 if __name__ == "__main__":
     math_quiz()
