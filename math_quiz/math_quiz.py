@@ -12,7 +12,13 @@ def getRandomInteger(minInteger, maxInteger):
     :return: Random value between min and max values
     :rtype: int
     """
-    return random.randint(minInteger, maxInteger)
+    try:
+        if minInteger < maxInteger:
+            return random.randint(minInteger, maxInteger)
+        else:
+            raise ValueError("First argument must be less than second argument")
+    except ValueError as alert:
+        print(f"Error: {alert}")
 
 
 def getRandomArithmeticSymbol():
